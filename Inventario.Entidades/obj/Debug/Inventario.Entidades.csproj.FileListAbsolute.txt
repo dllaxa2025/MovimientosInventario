@@ -1,0 +1,6 @@
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\bin\Debug\Inventario.Entidades.dll
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\bin\Debug\Inventario.Entidades.pdb
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\obj\Debug\Inventario.Entidades.csproj.AssemblyReference.cache
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\obj\Debug\Inventario.Entidades.csproj.CoreCompileInputs.cache
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\obj\Debug\Inventario.Entidades.dll
+G:\Desarrollo 2025 -1\Examen Entrevista\MovimientosInventario\Inventario.Entidades\obj\Debug\Inventario.Entidades.pdb

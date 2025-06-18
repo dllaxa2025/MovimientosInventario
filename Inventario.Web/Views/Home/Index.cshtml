@@ -1,0 +1,735 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <img src="~/Iconos/icons8-inventario-24.png" alt="Ícono" class="me-1" style="width:24px; height:24px;">
+        Listado de Inventario
+    </div>
+    <div class="card-body">
+        <form action="@Url.Action("","")" method="post">
+            <div class="row align-items-end">
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha de Inicio:</label>
+                        <input class="form-control" type="text" id="txtFechaInicio" name="Fechainicio" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha Fin:</label>
+                        <input class="form-control" type="text" id="txtFechaFin" name="Fechafin" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Tipo Movimiento:</label>
+                        <input class="form-control" type="text" id="txtTipoMovimiento" name="TipoMovimiento" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">NroDocumento:</label>
+                        <input class="form-control" type="text" id="txtNroDocumento" name="NroDocumento" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-primary" id="btnbuscar" type="button"><i class="fas fa-search"></i> Buscar</button>
+
+                    </div>
+                </div>
+
+               
+            </div>
+        </form>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+              
+                <button type="button" class="btn" style="background-color: #000000; color: white; font-family: Arial;" onclick="abrirModal()">Nuevo</button>
+               
+            </div>
+            <div class="col-sm-12">
+                <!-- Contenedor general -->
+                <div class="table-container">
+                    <div class="scroll-container">
+                        <!-- Contenedor de la tabla con scroll -->
+                        <table id="myTable" class="display cell-border" style="width:100%">
+                            <thead>
+                                <tr>
+                                  
+                                    <th></th>
+                                    <th></th>
+                                    <th>COD_CIA</th>
+                                    <th>COMPANIA_VENTA_3</th>
+                                    <th>ALMACEN_VENTA</th>
+                                    <th>TIPO_MOVIMIENTO</th>
+                                    <th>TIPO_DOCUMENTO</th>
+                                    <th>NRO_DOCUMENTO</th>
+                                    <th>COD_ITEM_2</th>
+                                    <th>PROVEEDOR</th>
+                                    <th>ALMACEN_DESTINO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>DOC_REF_1</th>
+                                    <th>DOC_REF_2</th>
+                                    <th>DOC_REF_3</th>
+                                    <th>DOC_REF_4</th>
+                                    <th>DOC_REF_5</th>
+                                    <th>FECHA_TRANSACCION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade custom-modal" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Agrandamos el modal -->
+        <div class="modal-content">
+            <div class="modal-header custom-modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Arial;">Nuevo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">COD_CIA:</label>
+                            <input class="form-control" id="txtCOD_CIA" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALMACEN_VENTA:</label>
+                            <input class="form-control" id="txtALMACEN_VENTA" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtTIPO_DOCUMENTO" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">COD_ITEM_2:</label>
+                            <input class="form-control" id="txtCOD_ITEM_2" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALMACEN_DESTINO:</label>
+                            <input class="form-control" id="txtALMACEN_DESTINO" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_2:</label>
+                            <input class="form-control" id="txtDOC_REF_2" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_4:</label>
+                            <input class="form-control" id="txtDOC_REF_4" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_5:</label>
+                            <input class="form-control" id="txtDOC_REF_5" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">COMPANIA_VENTA_3:</label>
+                            <input class="form-control" id="txtCOMPANIA_VENTA_3" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_MOVIMIENTO:</label>
+                            <input class="form-control" id="txtTIPO_MOVIMIENTO" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NRO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtNRO_DOCUMENTO" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">PROVEEDOR:</label>
+                            <input class="form-control" id="txtPROVEEDOR" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CANTIDAD:</label>
+                            <input class="form-control" id="txtCANTIDAD" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_1:</label>
+                            <input class="form-control" id="txtDOC_REF_1" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_3:</label>
+                            <input class="form-control" id="txtDOC_REF_3" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje de error -->
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger d-none" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade custom-modal" id="FormModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Agrandamos el modal -->
+        <div class="modal-content">
+            <div class="modal-header custom-modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Arial;">Editar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label">COD_CIA:</label>
+                            <input class="form-control" id="txtCOD_CIAEditar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALMACEN_VENTA:</label>
+                            <input class="form-control" id="txtALMACEN_VENTAEditar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtTIPO_DOCUMENTOEditar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">COD_ITEM_2:</label>
+                            <input class="form-control" id="txtCOD_ITEM_2Editar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALMACEN_DESTINO:</label>
+                            <input class="form-control" id="txtALMACEN_DESTINOEditar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_2:</label>
+                            <input class="form-control" id="txtDOC_REF_2Editar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_4:</label>
+                            <input class="form-control" id="txtDOC_REF_4Editar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_5:</label>
+                            <input class="form-control" id="txtDOC_REF_5Editar" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">COMPANIA_VENTA_3:</label>
+                            <input class="form-control" id="txtCOMPANIA_VENTA_3Editar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_MOVIMIENTO:</label>
+                            <input class="form-control" id="txtTIPO_MOVIMIENTOEditar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NRO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtNRO_DOCUMENTOEditar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">PROVEEDOR:</label>
+                            <input class="form-control" id="txtPROVEEDOREditar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CANTIDAD:</label>
+                            <input class="form-control" id="txtCANTIDADEditar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_1:</label>
+                            <input class="form-control" id="txtDOC_REF_1Editar" autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">DOC_REF_3:</label>
+                            <input class="form-control" id="txtDOC_REF_3Editar" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje de error -->
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger d-none" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary" onclick="Editar()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade custom-modal" id="FormModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Agrandamos el modal -->
+        <div class="modal-content">
+            <div class="modal-header custom-modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="font-family: Arial;">Eliminar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label">COD_CIA:</label>
+                            <input class="form-control" id="txtCOD_CIAEliminar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ALMACEN_VENTA:</label>
+                            <input class="form-control" id="txtALMACEN_VENTAEliminar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtTIPO_DOCUMENTOEliminar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">COD_ITEM_2:</label>
+                            <input class="form-control" id="txtCOD_ITEM_2Eliminar" disabled autocomplete="off">
+                        </div>
+                        
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">COMPANIA_VENTA_3:</label>
+                            <input class="form-control" id="txtCOMPANIA_VENTA_3Eliminar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">TIPO_MOVIMIENTO:</label>
+                            <input class="form-control" id="txtTIPO_MOVIMIENTOEliminar" disabled autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">NRO_DOCUMENTO:</label>
+                            <input class="form-control" id="txtNRO_DOCUMENTOEliminar" disabled autocomplete="off">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Mensaje de error -->
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger d-none" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary" onclick="Eliminar()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <style>
+        .table-container {
+            max-height: 600px; /* Ajusta según el tamaño de la tabla */
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .scroll-container {
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f1f1f1;  
+            z-index: 1;  
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: #f1f1f1;  
+            border-bottom: 2px solid #ddd;  
+        }
+
+        .badge-custom-ingreso {
+            background-color: #183a74;  
+            color: white;  
+        }
+
+        .badge-custom-salida {
+            background-color: gray;  
+            color: white;  
+        }
+
+        .custom-modal-header {
+            background-color: #183a74; 
+            color: white; 
+        }
+
+        .custom-modal .modal-content {
+            background-color: #183a74; 
+            color: white;  
+        }
+    </style>
+    <script>
+          var tabladata;
+
+        $(document).ready(function () {
+
+             $("#txtFechaInicio").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+            $("#txtFechaFin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+            var Url = '@Url.Action("ListaInventario", "Inventario")' +
+                "?Fechainicio=" + $("#txtFechaInicio").val() +
+                "&Fechafin=" + $("#txtFechaFin").val() +
+                "&TipoMovimiento=" + $("#txtTipoMovimiento").val() +
+                "&NroDocumento=" + $("#txtNroDocumento").val()
+
+             tabladata = $("#myTable").DataTable({
+                 responsive: true,
+                 ordering: false,
+                 "ajax": {
+                     url: Url,
+                     type: "GET",
+                     dataType: "json",
+                 },
+                 "columns": [
+
+  			        {
+                         "defaultContent":
+                             '<button type="button" class="btn badge-custom-editar btn-sm btn-editar d-inline" data-id=""> <i class="fas fa-edit fa-2x" style="color: #183a74;"></i></button>' ,
+                         "orderable": false,
+                         "searchable": false,
+                         "width": "60px"
+                     },
+                     {
+                         "defaultContent":
+                             '<button type="button" class="btn badge-custom-eliminar btn-sm btn-eliminar d-inline" data-id=""> <i class="fas fa-trash fa-2x" style="color: #183a74;"></i></button>',
+                         "orderable": false,
+                         "searchable": false,
+                         "width": "60px"
+                     },
+                     { "data": "COD_CIA" },
+                     { "data": "COMPANIA_VENTA_3" },
+                     { "data": "ALMACEN_VENTA" },
+                     { "data": "TIPO_MOVIMIENTO" },
+                     { "data": "TIPO_DOCUMENTO" },
+                     { "data": "NRO_DOCUMENTO" },
+                     { "data": "COD_ITEM_2" },
+                     { "data": "PROVEEDOR" },
+                     { "data": "ALMACEN_DESTINO" },
+                     { "data": "CANTIDAD" },
+                     { "data": "DOC_REF_1" },
+                     { "data": "DOC_REF_2" },
+                     { "data": "DOC_REF_3" },
+                     { "data": "DOC_REF_4" },
+                     { "data": "DOC_REF_5" },
+
+                     {
+                         "data": "FECHA_TRANSACCION",
+                         "render": function (data) {
+                             var timestamp = parseInt(data.replace(/\/Date\((\d+)\)\//, '$1'));
+                             var date = new Date(timestamp);
+                             var day = date.getDate().toString().padStart(2, '0');
+                             var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                             var year = date.getFullYear();
+                             return `${day}/${month}/${year}`;
+
+                         }
+                     },
+
+                 ],
+                 "language": {
+                     "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                 }
+
+             });
+
+        })
+
+        function abrirModal() {
+            $("#mensajeError").hide();
+            $("#FormModal").modal("show");
+        }
+
+        function Guardar() {
+             var inv = {
+                 COD_CIA: $("#txtCOD_CIA").val(),
+                 COMPANIA_VENTA_3: $("#txtCOMPANIA_VENTA_3").val(),
+                 ALMACEN_VENTA: $("#txtALMACEN_VENTA").val(),
+                 TIPO_MOVIMIENTO: $("#txtTIPO_MOVIMIENTO").val(),
+                 TIPO_DOCUMENTO: $("#txtTIPO_DOCUMENTO").val(),
+                 NRO_DOCUMENTO: $("#txtNRO_DOCUMENTO").val(),
+                 COD_ITEM_2: $("#txtCOD_ITEM_2").val(),
+                 PROVEEDOR: $("#txtPROVEEDOR").val(),
+                 ALMACEN_DESTINO: $("#txtALMACEN_DESTINO").val(),
+                 CANTIDAD: $("#txtCANTIDAD").val(),
+                 DOC_REF_1: $("#txtDOC_REF_1").val(),
+                 DOC_REF_2: $("#txtDOC_REF_2").val(),
+                 DOC_REF_3: $("#txtDOC_REF_3").val(),
+                 DOC_REF_4: $("#txtDOC_REF_4").val(),
+                 DOC_REF_5: $("#txtDOC_REF_5").val(),
+            }
+            jQuery.ajax({
+                url: '@Url.Action("InsertarInventario", "Inventario")',
+                type: "POST",
+                data: JSON.stringify({ objeto: inv }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    if (data.resultado != 0) {
+                        tabladata.ajax.reload(null, false);
+
+                        $("#FormModal").modal("hide");
+                    } else {
+                        $("#mensajeError").text(data.mensaje);
+                        $("#mensajeError").show();
+                    }
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+                },
+                beforeSend: function () {
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size:14
+                    })
+                }
+            });
+
+        }
+             function Editar() {
+             var inv = {
+                 COD_CIA: $("#txtCOD_CIAEditar").val(),
+                 COMPANIA_VENTA_3: $("#txtCOMPANIA_VENTA_3Editar").val(),
+                 ALMACEN_VENTA: $("#txtALMACEN_VENTAEditar").val(),
+                 TIPO_MOVIMIENTO: $("#txtTIPO_MOVIMIENTOEditar").val(),
+                 TIPO_DOCUMENTO: $("#txtTIPO_DOCUMENTOEditar").val(),
+                 NRO_DOCUMENTO: $("#txtNRO_DOCUMENTOEditar").val(),
+                 COD_ITEM_2: $("#txtCOD_ITEM_2Editar").val(),
+                 PROVEEDOR: $("#txtPROVEEDOREditar").val(),
+                 ALMACEN_DESTINO: $("#txtALMACEN_DESTINOEditar").val(),
+                 CANTIDAD: $("#txtCANTIDADEditar").val(),
+                 DOC_REF_1: $("#txtDOC_REF_1Editar").val(),
+                 DOC_REF_2: $("#txtDOC_REF_2Editar").val(),
+                 DOC_REF_3: $("#txtDOC_REF_3Editar").val(),
+                 DOC_REF_4: $("#txtDOC_REF_4Editar").val(),
+                 DOC_REF_5: $("#txtDOC_REF_5Editar").val(),
+
+
+
+
+             }
+
+            jQuery.ajax({
+                url: '@Url.Action("EditarInventario", "Inventario")',
+                type: "POST",
+                data: JSON.stringify({ objeto: inv }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    if (data.resultado != 0) {
+                        tabladata.ajax.reload(null, false);
+
+                        $("#FormModalEditar").modal("hide");
+                    } else {
+                        $("#mensajeError").text(data.mensaje);
+                        $("#mensajeError").show();
+                    }
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+                },
+                beforeSend: function () {
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size:14
+                    })
+                }
+            });
+
+        }
+        function abrirModaleditar(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA, TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2, PROVEEDOR, ALMACEN_DESTINO,
+            CANTIDAD, DOC_REF_1, DOC_REF_2, DOC_REF_3, DOC_REF_4, DOC_REF_5) {
+            $("#txtCOD_CIAEditar").val(COD_CIA);
+            $("#txtCOMPANIA_VENTA_3Editar").val(COMPANIA_VENTA_3);
+            $("#txtALMACEN_VENTAEditar").val(ALMACEN_VENTA);
+            $("#txtTIPO_MOVIMIENTOEditar").val(TIPO_MOVIMIENTO);
+            $("#txtTIPO_DOCUMENTOEditar").val(TIPO_DOCUMENTO);
+            $("#txtNRO_DOCUMENTOEditar").val(NRO_DOCUMENTO);
+            $("#txtCOD_ITEM_2Editar").val(COD_ITEM_2);
+
+            $("#txtPROVEEDOREditar").val(PROVEEDOR);
+            $("#txtALMACEN_DESTINOEditar").val(ALMACEN_DESTINO);
+            $("#txtCANTIDADEditar").val(CANTIDAD);
+            $("#txtDOC_REF_1Editar").val(DOC_REF_1);
+            $("#txtDOC_REF_2Editar").val(DOC_REF_2);
+            $("#txtDOC_REF_3Editar").val(DOC_REF_3);
+            $("#txtDOC_REF_4Editar").val(DOC_REF_4);
+            $("#txtDOC_REF_5Editar").val(DOC_REF_5);
+            $("#mensajeErrorSalida").hide();
+            $("#FormModalEditar").modal("show");
+        }
+
+        $('#myTable').on('click', '.btn-editar', function () {
+            var tr = $(this).closest('tr');
+            var row = tabladata.row(tr);
+            var data = row.data();
+            var COD_CIA = data.COD_CIA;
+            var COMPANIA_VENTA_3 = data.COMPANIA_VENTA_3;
+            var ALMACEN_VENTA = data.ALMACEN_VENTA;
+            var TIPO_MOVIMIENTO = data.TIPO_MOVIMIENTO;
+            var TIPO_DOCUMENTO = data.TIPO_DOCUMENTO;
+            var NRO_DOCUMENTO = data.NRO_DOCUMENTO;
+            var COD_ITEM_2 = data.COD_ITEM_2;
+            var PROVEEDOR = data.PROVEEDOR;
+            var ALMACEN_DESTINO = data.ALMACEN_DESTINO;
+            var CANTIDAD = data.CANTIDAD;
+            var DOC_REF_1 = data.DOC_REF_1;
+            var DOC_REF_2 = data.DOC_REF_2;
+            var DOC_REF_3 = data.DOC_REF_3;
+            var DOC_REF_4 = data.DOC_REF_4;
+            var DOC_REF_5 = data.DOC_REF_5;
+            abrirModaleditar(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA, TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2, PROVEEDOR, ALMACEN_DESTINO,
+                CANTIDAD, DOC_REF_1, DOC_REF_2, DOC_REF_3, DOC_REF_4, DOC_REF_5);
+        });
+
+        $('#myTable').on('click', '.btn-eliminar', function () {
+            var tr = $(this).closest('tr');
+            var row = tabladata.row(tr);
+            var data = row.data();
+            var COD_CIA = data.COD_CIA;
+            var COMPANIA_VENTA_3 = data.COMPANIA_VENTA_3;
+            var ALMACEN_VENTA = data.ALMACEN_VENTA;
+            var TIPO_MOVIMIENTO = data.TIPO_MOVIMIENTO;
+            var TIPO_DOCUMENTO = data.TIPO_DOCUMENTO;
+            var NRO_DOCUMENTO = data.NRO_DOCUMENTO;
+            var COD_ITEM_2 = data.COD_ITEM_2;
+            abrirModaleliminar(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA, TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2);
+        });
+
+
+        function abrirModaleliminar(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA, TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2) {
+            $("#txtCOD_CIAEliminar").val(COD_CIA);
+            $("#txtCOMPANIA_VENTA_3Eliminar").val(COMPANIA_VENTA_3);
+            $("#txtALMACEN_VENTAEliminar").val(ALMACEN_VENTA);
+            $("#txtTIPO_MOVIMIENTOEliminar").val(TIPO_MOVIMIENTO);
+            $("#txtTIPO_DOCUMENTOEliminar").val(TIPO_DOCUMENTO);
+            $("#txtNRO_DOCUMENTOEliminar").val(NRO_DOCUMENTO);
+            $("#txtCOD_ITEM_2Eliminar").val(COD_ITEM_2);
+            $("#mensajeErrorSalida").hide();
+            $("#FormModalEliminar").modal("show");
+        }
+
+
+        function Eliminar() {
+             var inv = {
+                 COD_CIA: $("#txtCOD_CIAEliminar").val(),
+                 COMPANIA_VENTA_3: $("#txtCOMPANIA_VENTA_3Eliminar").val(),
+                 ALMACEN_VENTA: $("#txtALMACEN_VENTAEliminar").val(),
+                 TIPO_MOVIMIENTO: $("#txtTIPO_MOVIMIENTOEliminar").val(),
+                 TIPO_DOCUMENTO: $("#txtTIPO_DOCUMENTOEliminar").val(),
+                 NRO_DOCUMENTO: $("#txtNRO_DOCUMENTOEliminar").val(),
+                 COD_ITEM_2: $("#txtCOD_ITEM_2Eliminar").val(),
+
+            }
+
+            jQuery.ajax({
+                url: '@Url.Action("EliminarInventario", "Inventario")',
+                type: "POST",
+                data: JSON.stringify({ objeto: inv }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    if (data.resultado != 0) {
+                        tabladata.ajax.reload(null, false);
+
+                        $("#FormModalEliminar").modal("hide");
+                    } else {
+                        $("#mensajeError").text(data.mensaje);
+                        $("#mensajeError").show();
+                    }
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+                },
+                beforeSend: function () {
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size:14
+                    })
+                }
+            });
+
+        }
+
+          $("#btnbuscar").on("click", function () {
+                var nueva_Url = '@Url.Action("ListaInventario", "Inventario")' +
+                    "?Fechainicio=" + $("#txtFechaInicio").val() +
+                    "&Fechafin=" + $("#txtFechaFin").val() +
+                    "&TipoMovimiento=" + $("#txtTipoMovimiento").val() +
+                    "&NroDocumento=" + $("#txtNroDocumento").val()
+                tabladata.ajax.url(nueva_Url).load();
+          })
+    </script>
+        
+}
